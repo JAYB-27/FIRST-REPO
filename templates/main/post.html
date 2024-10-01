@@ -1,0 +1,81 @@
+
+{%extends "base.html"%}
+{%load static%}
+
+
+{%block content%}
+
+<!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url({{post.post_banner.url}})">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>{{post.title}}</h1>
+                        <hr class="small">
+                        <span class="subheading">POST.</span>
+                        <p class="post-meta">Posted by {{post.owner.names}}</a> on {{post.published_date}}</p>
+                        <p class="post-meta"> {{form.comment}}</a> </p>
+                        <h2>{{first_cookie}}</h2>
+
+                        
+
+                    
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             {{post.content|safe}}
+            </div>
+            <!-- <img src="{{post.thumbnail.url}}"      alt="file" class="img-fluid mr-4"> -->
+             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+                <h3>Comments</h3>
+                <a href="{% url 'profile' post.owner.id %}"> {{post.owner.names}}</a>
+                <a> {{post.names}}</a>
+
+                <ul>{% if comments %}
+                    {%for comment in comments%}
+
+                <li>{{comment.name}}
+                    {{comment.comment}}
+                </li>
+                {% endfor %}
+
+                {%else%}
+                <li>No comments added</li>
+            {% endif %}
+
+
+                </ul>
+                
+
+
+
+                <form action="" method="post">
+                    
+                    {%csrf_token %}
+                    {{comment_form.as_p}}
+                   
+                    <input type="submit" class="btn btn-primary" value="submit">
+
+                </form>
+        </div>
+    </div>
+
+    <hr>
+
+  
+
+{%endblock content %}
